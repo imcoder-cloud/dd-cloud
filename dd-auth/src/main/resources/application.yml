@@ -1,0 +1,22 @@
+server:
+  port: 9090
+  host: localhost
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/sjzt?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+
+  redis:
+     open: true # 是否开启redis缓存  true开启   false关闭
+     database: 1
+     host: 127.0.0.1
+     port: 6379
+     timeout: 5000s  # 连接超时时长（毫秒）
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
