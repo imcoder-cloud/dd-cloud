@@ -1,21 +1,27 @@
 package fun.imcoder.cloud.auth.controller;
 
-import fun.imcoder.cloud.auth.vo.ResponseVO;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
+import fun.imcoder.cloud.auth.model.User;
+import fun.imcoder.cloud.auth.service.UserService;
+import fun.imcoder.cloud.base.vo.ResponseVO;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
-import java.util.Map;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("/info")
-    public ResponseVO postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return ResponseVO.success("success");
+    @Resource
+    private UserService userService;
+
+    @GetMapping("/info/{name}")
+    public ResponseVO postAccessToken(@PathVariable String name, HttpServletRequest request, HttpServletResponse response) {
+        User user = userService.findByName(name);
+        return ResponseVO.success(user);
     }
 }

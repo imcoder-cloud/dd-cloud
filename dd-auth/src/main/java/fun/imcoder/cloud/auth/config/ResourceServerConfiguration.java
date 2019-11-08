@@ -1,6 +1,7 @@
 package fun.imcoder.cloud.auth.config;
 
-import fun.imcoder.cloud.auth.exception.AuthException;
+import fun.imcoder.cloud.auth.handle.AuthExceptionHandler;
+import fun.imcoder.cloud.auth.handle.AuthFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,35 +14,30 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-    private static final String RESOURCE_ID = "dd";
-
 
     @Autowired
-    DdAccessDecisionManager decisionManager;
+    private AuthExceptionHandler authExceptionHandler;
 
     @Autowired
-    DdFilterInvocationSecurityMetadataSource ddFilterInvocationSecurityMetadataSource;
-
-    @Autowired
-    private AuthException authException;
+    private AuthFailureHandler authFailureHandler;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.resourceId(RESOURCE_ID)
-                .accessDeniedHandler(authException)
-                .authenticationEntryPoint(authException);
+        resources
+                .accessDeniedHandler(authExceptionHandler)
+                .authenticationEntryPoint(authExceptionHandler);
     }
 
     @Bean
     public FilterSecurityInterceptor filterSecurityInterceptor() {
-        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
-        filterSecurityInterceptor.setAccessDecisionManager(decisionManager);
-        filterSecurityInterceptor.setSecurityMetadataSource(ddFilterInvocationSecurityMetadataSource);
-        return filterSecurityInterceptor;
+        return new FilterSecurityInterceptor();
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
+        http.formLogin()
+//                .successHandler(authSuccessHandler)
+                .failureHandler(authFailureHandler);
         http
                 .csrf().disable()
                 .exceptionHandling()

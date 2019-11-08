@@ -1,7 +1,7 @@
-package fun.imcoder.cloud.auth.vo;
+package fun.imcoder.cloud.base.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import fun.imcoder.cloud.auth.enums.ResponseEnum;
+import fun.imcoder.cloud.base.enums.ResponseEnum;
 import lombok.Data;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;

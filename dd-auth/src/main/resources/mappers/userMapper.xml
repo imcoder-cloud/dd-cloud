@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.imcoder.cloud.auth.mapper.UserMapper">
+
+    <select id="findByName" resultType="fun.imcoder.cloud.auth.model.User">
+        select
+			a.id id,
+			a.password password,
+			a.email email,
+			a.username username
+        from user a
+        where a.username = #{name}
+        <if test="password != null and password != '' ">
+            and a.password = #{password}
+        </if>
+    </select>
+
+</mapper>

@@ -1,8 +1,8 @@
-package fun.imcoder.cloud.auth.exception;
+package fun.imcoder.cloud.auth.handle;
 
 import com.alibaba.fastjson.JSON;
-import fun.imcoder.cloud.auth.enums.ResponseEnum;
-import fun.imcoder.cloud.auth.vo.ResponseVO;
+import fun.imcoder.cloud.base.enums.ResponseEnum;
+import fun.imcoder.cloud.base.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
@@ -18,42 +18,25 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-public class AuthException implements AuthenticationEntryPoint, AccessDeniedHandler {
+public class AuthExceptionHandler implements AuthenticationEntryPoint, AccessDeniedHandler {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-
         Throwable cause = authException.getCause();
         response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        // CORS "pre-flight" request
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Cache-Control","no-cache");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.addHeader("Access-Control-Max-Age", "1800");
-        if (cause instanceof InvalidTokenException) {
-            log.error("InvalidTokenException : {}",cause.getMessage());
-            //Token无效
+        if(cause instanceof InvalidTokenException) {
             response.getWriter().write(JSON.toJSONString(ResponseVO.error(ResponseEnum.ACCESS_TOKEN_INVALID)));
-        } else {
-            log.error("AuthenticationException : NoAuthentication");
-            //资源未授权
+        }else{
             response.getWriter().write(JSON.toJSONString(ResponseVO.error(ResponseEnum.UNAUTHORIZED)));
         }
-
     }
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
+        response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Cache-Control","no-cache");
-        response.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
-        response.addHeader("Access-Control-Max-Age", "1800");
-        //访问资源的用户权限不足
-        log.error("AccessDeniedException : {}",accessDeniedException.getMessage());
-        response.getWriter().write(JSON.toJSONString(ResponseVO.error(ResponseEnum.INSUFFICIENT_PERMISSIONS)));
+        response.getWriter().write(JSON.toJSONString(ResponseVO.error(ResponseEnum.UNAUTHORIZED)));
     }
 }

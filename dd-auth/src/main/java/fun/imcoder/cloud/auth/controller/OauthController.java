@@ -1,6 +1,6 @@
 package fun.imcoder.cloud.auth.controller;
 
-import fun.imcoder.cloud.auth.vo.ResponseVO;
+import fun.imcoder.cloud.base.vo.ResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

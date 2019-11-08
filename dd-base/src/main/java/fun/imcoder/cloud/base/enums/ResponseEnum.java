@@ -1,4 +1,4 @@
-package fun.imcoder.cloud.auth.enums;
+package fun.imcoder.cloud.base.enums;
 
 public enum ResponseEnum {
     SUCCESS(200,"成功"),
@@ -7,6 +7,7 @@ public enum ResponseEnum {
     INSUFFICIENT_PERMISSIONS(403,"该用户权限不足以访问该资源接口"),
     UNAUTHORIZED(401,"访问此资源需要完全的身份验证"),
     INCORRECT_PARAMS(412, "参数不正确"),
+    SERVER_ERROR(500, "服务器错误"),
     ;
     private Integer code;
     private String message;

@@ -1,6 +1,8 @@
 package fun.imcoder.cloud.auth.model;
 
+import fun.imcoder.cloud.base.support.BaseModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,30 +13,31 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-public class User implements UserDetails,Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class User extends BaseModel implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String id;
     private String password;
     private String username;
-    private String realName;
-    private List<String> authorities;
+    private String email;
+    private List<GrantedAuthority> authorities;
 
     //权限列表
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return this.authorities;
     }
+
     //获取密码
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     //获取用户名
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     @Override

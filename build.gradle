@@ -42,10 +42,12 @@ subprojects {
 
     /* 添加通用依赖 */
     dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
+        testCompile group: 'junit', name: 'junit', version: '4.12'
     }
 }
