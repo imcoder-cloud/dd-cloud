@@ -54,14 +54,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return tokenStore;
     }
 
-//    @Bean
-//    public RedisCacheConfiguration redisCacheConfiguration() {
-//        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
-//        RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
-//        configuration = configuration.serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(fastJsonRedisSerializer)).entryTtl(Duration.ofDays(30));
-//        return configuration;
-//    }
-
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return (accessToken, authentication) -> {
