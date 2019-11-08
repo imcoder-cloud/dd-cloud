@@ -1,0 +1,5 @@
+dependencies {
+    compile('com.github.pagehelper:pagehelper-spring-boot-starter:1.2.12') {
+        exclude group: 'org.mybatis.spring.boot', module: 'mybatis-spring-boot-starter'
+    }
+}

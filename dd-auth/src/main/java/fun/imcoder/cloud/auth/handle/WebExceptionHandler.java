@@ -5,6 +5,7 @@ import fun.imcoder.cloud.base.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -58,10 +59,10 @@ public class WebExceptionHandler {
         return ResponseVO.error(ResponseEnum.INCORRECT_PARAMS);
     }
 
-    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    @ExceptionHandler(InvalidGrantException.class)
     @ResponseBody
     public ResponseVO<String> AuthExceptionHandler(HttpMessageNotReadableException e) {
-        return ResponseVO.error(ResponseEnum.INCORRECT_PARAMS);
+        return ResponseVO.error(ResponseEnum.AUTH_ERROR);
     }
 
     @ExceptionHandler(Exception.class)
