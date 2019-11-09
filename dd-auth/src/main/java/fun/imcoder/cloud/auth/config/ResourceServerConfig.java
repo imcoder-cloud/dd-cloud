@@ -1,7 +1,8 @@
 package fun.imcoder.cloud.auth.config;
 
-import fun.imcoder.cloud.security.handle.AuthExceptionHandler;
+import fun.imcoder.cloud.base.handle.AuthExceptionHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -14,6 +15,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     @Autowired
     private AuthExceptionHandler authExceptionHandler;
+
+    @Bean
+    public AuthExceptionHandler authExceptionHandler(){
+        return new AuthExceptionHandler();
+    }
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {

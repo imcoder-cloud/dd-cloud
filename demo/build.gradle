@@ -1,6 +1,13 @@
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java','../dd-base/src/main/java']
+        }
+    }
+}
 
 dependencies {
     compile project(':dd-base')
-    compile project(':dd-security')
+//    compile project(':dd-security')
 }
 

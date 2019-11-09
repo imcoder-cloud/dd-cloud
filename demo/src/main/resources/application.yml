@@ -1,0 +1,28 @@
+server:
+  port: 9091
+#  servlet:
+#    session:
+#      cookie:
+#        name: DEMOSESSION
+
+# sso　认证配置
+oauth2-server: http://localhost:9090
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      # grant-type: client_credentials    # 授权模式
+      client-id: client_2        # 在oauth 服务端注册的client-id
+      client-secret: 123456     # 在oauth 服务端注册的secret
+      access-token-uri: ${oauth2-server}/oauth/token    #获取token 地址
+      user-authorization-uri: ${oauth2-server}/oauth/authorize  # 认证地址
+      scope: all
+    resource:
+      token-info-uri: ${oauth2-server}/oauth/check_token  # 检查token
+      user-info-uri: ${oauth2-server}/oauth/me   # 用户信息
+#      jwt:
+#        key-uri: ${oauth2-server}/oauth/token_key
+    sso:
+      login-path: /login
