@@ -1,0 +1,6 @@
+
+dependencies {
+    compile project(':dd-base')
+    compile project(':dd-security')
+}
+
