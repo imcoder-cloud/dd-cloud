@@ -54,7 +54,7 @@ public class WebExceptionHandler {
     //处理请求参数格式错误  HttpMediaTypeNotSupportedException
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseBody
-    public ResponseData<String> HttpMediaTypeNotSupportedExceptionHandler(HttpMessageNotReadableException e) {
+    public ResponseData<String> HttpMediaTypeNotSupportedExceptionHandler(HttpMediaTypeNotSupportedException e) {
         return ResponseData.error(ResponseEnum.INCORRECT_PARAMS);
     }
 
