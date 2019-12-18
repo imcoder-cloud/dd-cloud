@@ -19,10 +19,10 @@ public class OauthController {
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
-    @PostMapping("/token")
-    public ResponseVO postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return ResponseVO.success(tokenEndpoint.postAccessToken(principal, parameters).getBody());
-    }
+//    @PostMapping("/token")
+//    public ResponseVO postAccessToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+//        return ResponseVO.success(tokenEndpoint.postAccessToken(principal, parameters).getBody());
+//    }
 
     @GetMapping("/me")
     public Principal getUser(Principal user){

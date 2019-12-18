@@ -19,8 +19,8 @@ public class BaseController<M extends BaseModel,S extends BaseService> {
     public S service;
 
     @GetMapping("/list")
-    private ResponseVO list(@RequestBody M m){
-        List<M> list = service.findAll(m);
+    private ResponseVO list(){
+        List<M> list = service.findAll();
         return ResponseVO.success(list);
     }
 

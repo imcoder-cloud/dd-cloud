@@ -91,8 +91,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("client_2")
-                .authorizedGrantTypes("password", "refresh_token")
+                .withClient("client_1")
+                .authorizedGrantTypes("password","authorization_code", "refresh_token")
                 .scopes("all")
                 .authorities("ROLE_APP")
                 .secret(passwordEncoder().encode("123456"))

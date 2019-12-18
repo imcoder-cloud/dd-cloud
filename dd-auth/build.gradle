@@ -14,6 +14,7 @@ sourceSets {
 dependencies {
     compile project(':dd-base')
 //    compile project(':dd-security')
+//    compile 'org.springframework.cloud:spring-cloud-starter-oauth2'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
     runtimeOnly 'mysql:mysql-connector-java'

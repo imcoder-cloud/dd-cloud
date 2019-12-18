@@ -1,6 +1,10 @@
 server:
   port: 9090
   host: localhost
+  servlet:
+    session:
+      cookie:
+        name: AUTHSESSION
 
 spring:
   datasource:
