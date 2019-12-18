@@ -1,5 +1,6 @@
 package fun.imcoder.cloud.auth.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import fun.imcoder.cloud.base.support.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +21,7 @@ public class User extends BaseModel implements UserDetails, Serializable {
     private String password;
     private String username;
     private String email;
+    @TableField(exist = false)
     private List<GrantedAuthority> authorities;
 
     //权限列表

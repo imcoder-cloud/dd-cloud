@@ -43,12 +43,12 @@ subprojects {
     /* 添加通用依赖 */
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-security'
-        implementation ('org.springframework.security.oauth:spring-security-oauth2:2.3.6.RELEASE')
-        implementation('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE')
+
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+        runtimeOnly 'mysql:mysql-connector-java'
+        compile 'org.apache.commons:commons-lang3:3.9'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         compile group: 'com.alibaba', name: 'fastjson', version: '1.2.62'
         testCompile group: 'junit', name: 'junit', version: '4.12'

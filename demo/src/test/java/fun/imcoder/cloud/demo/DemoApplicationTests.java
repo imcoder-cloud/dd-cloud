@@ -1,4 +1,4 @@
-package com.example.demo;
+package fun.imcoder.cloud.demo;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;

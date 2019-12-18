@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package fun.imcoder.cloud.demo.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

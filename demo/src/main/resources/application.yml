@@ -8,6 +8,13 @@ server:
 # sso　认证配置
 oauth2-server: http://localhost:9090
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: root
+
 security:
   oauth2:
     client:
@@ -18,11 +25,11 @@ security:
       access-token-uri: http://localhost:9090/oauth/token    #获取token 地址
       user-authorization-uri: http://localhost:9090/oauth/authorize  # 认证地址
     resource:
-#      filter-order: 3
-#      preferTokenInfo: true
+      filter-order: 3
+      preferTokenInfo: true
       token-info-uri: http://localhost:9090/oauth/check_token  # 检查token
       user-info-uri: http://localhost:9090/oauth/me   # 用户信息
 #      jwt:
 #        key-uri: ${oauth2-server}/oauth/token_key
-    sso:
-      login-path: /login
+#    sso:
+#      login-path: /login

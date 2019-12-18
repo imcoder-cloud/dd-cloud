@@ -1,4 +1,4 @@
-package fun.imcoder.cloud.base.vo;
+package fun.imcoder.cloud.base.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import fun.imcoder.cloud.base.enums.ResponseEnum;
@@ -14,7 +14,7 @@ import java.util.Locale;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResponseVO<T> implements Serializable {
+public class ResponseData<T> implements Serializable {
     /**
      * 异常码
      */
@@ -30,59 +30,59 @@ public class ResponseVO<T> implements Serializable {
      */
     private T data;
 
-    public ResponseVO() {}
+    public ResponseData() {}
 
-    public ResponseVO(Integer code, String msg) {
+    public ResponseData(Integer code, String msg) {
         this.code = code;
         this.message = msg;
     }
 
-    public ResponseVO(Integer code, String msg, T data) {
+    public ResponseData(Integer code, String msg, T data) {
         this.code = code;
         this.message = msg;
         this.data = data;
     }
 
-    public ResponseVO(ResponseEnum responseEnum) {
+    public ResponseData(ResponseEnum responseEnum) {
         this.code = responseEnum.getCode();
         this.message = responseEnum.getMessage();
     }
 
-    public ResponseVO(ResponseEnum responseEnum, T data) {
+    public ResponseData(ResponseEnum responseEnum, T data) {
         this.code = responseEnum.getCode();
         this.message = responseEnum.getMessage();
         this.data = data;
     }
 
-    public static ResponseVO success(){
-        return new ResponseVO(ResponseEnum.SUCCESS);
+    public static ResponseData success(){
+        return new ResponseData(ResponseEnum.SUCCESS);
     }
 
-    public static <T> ResponseVO<T> success(T data){
-        return new ResponseVO<T>(ResponseEnum.SUCCESS, data);
+    public static <T> ResponseData<T> success(T data){
+        return new ResponseData<T>(ResponseEnum.SUCCESS, data);
     }
 
-    public static <T> ResponseVO<T> success(int code, String msg){
-        return new ResponseVO<T>(code, msg);
+    public static <T> ResponseData<T> success(int code, String msg){
+        return new ResponseData<T>(code, msg);
     }
 
-    public static ResponseVO error(int code, String msg){
-        return new ResponseVO(code,msg);
+    public static ResponseData error(int code, String msg){
+        return new ResponseData(code,msg);
     }
 
-    public static ResponseVO error(ResponseEnum responseEnum){
-        return new ResponseVO(responseEnum);
+    public static ResponseData error(ResponseEnum responseEnum){
+        return new ResponseData(responseEnum);
     }
 
-    public static ResponseVO error(ResponseEnum responseEnum, Object data){
-        return new ResponseVO<Object>(responseEnum, data);
+    public static ResponseData error(ResponseEnum responseEnum, Object data){
+        return new ResponseData<Object>(responseEnum, data);
     }
 
-    public static ResponseVO errorParams(String msg){
-        return new ResponseVO(ResponseEnum.INCORRECT_PARAMS.getCode(), msg);
+    public static ResponseData errorParams(String msg){
+        return new ResponseData(ResponseEnum.INCORRECT_PARAMS.getCode(), msg);
     }
 
-    public static ResponseVO error(BindingResult result, MessageSource messageSource) {
+    public static ResponseData error(BindingResult result, MessageSource messageSource) {
         StringBuffer msg = new StringBuffer();
         //获取错误字段集合
         List<FieldError> fieldErrors = result.getFieldErrors();
@@ -95,6 +95,6 @@ public class ResponseVO<T> implements Serializable {
             //添加到错误消息集合内
             msg.append(fieldError.getField() + "：" + errorMessage + " , ");
         }
-        return ResponseVO.error(ResponseEnum.INCORRECT_PARAMS, msg.toString());
+        return ResponseData.error(ResponseEnum.INCORRECT_PARAMS, msg.toString());
     }
 }

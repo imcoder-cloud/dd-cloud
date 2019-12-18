@@ -6,19 +6,17 @@ bootJar.enabled = true
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java','../dd-base/src/main/java']
+            srcDirs = ['src/main/java','../dd-base/src/main/java','../dd-security/src/main/java']
         }
     }
 }
 
 dependencies {
     compile project(':dd-base')
-//    compile project(':dd-security')
-//    compile 'org.springframework.cloud:spring-cloud-starter-oauth2'
+    compile project(':dd-security')
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
-    runtimeOnly 'mysql:mysql-connector-java'
-    compile 'org.apache.commons:commons-lang3:3.9'
+//    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+
 
     testImplementation 'org.springframework.security:spring-security-test'
 }

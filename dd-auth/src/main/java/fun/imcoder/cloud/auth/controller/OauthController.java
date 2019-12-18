@@ -1,15 +1,12 @@
 package fun.imcoder.cloud.auth.controller;
 
 import com.alibaba.fastjson.JSON;
-import fun.imcoder.cloud.base.vo.ResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/oauth")
