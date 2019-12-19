@@ -43,7 +43,11 @@ subprojects {
     /* 添加通用依赖 */
     dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
-
+        compile ('org.springframework.boot:spring-boot-starter-security')
+        compile ('org.springframework.security.oauth:spring-security-oauth2:2.3.6.RELEASE')
+        compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE'){
+            exclude group: 'org.springframework.security.oauth', module:'spring-security-oauth2'
+        }
         developmentOnly 'org.springframework.boot:spring-boot-devtools'
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import fun.imcoder.cloud.base.common.ResponseData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class BaseController<M extends BaseModel,S extends IService> {
 
-    @Resource
+    @Autowired
     public S service;
 
     @GetMapping("/all")

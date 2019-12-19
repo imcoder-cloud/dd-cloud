@@ -70,6 +70,10 @@ public class ResponseData<T> implements Serializable {
         return new ResponseData(code,msg);
     }
 
+    public static ResponseData error(ResponseEnum responseEnum, String msg){
+        return new ResponseData(responseEnum.getCode(),msg);
+    }
+
     public static ResponseData error(ResponseEnum responseEnum){
         return new ResponseData(responseEnum);
     }

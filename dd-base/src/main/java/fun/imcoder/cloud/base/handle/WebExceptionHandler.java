@@ -5,6 +5,10 @@ import fun.imcoder.cloud.base.common.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,8 +24,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class WebExceptionHandler {
 
-	//处理Get请求中 使用@Valid 验证路径中请求实体校验失败后抛出的异常，详情继续往下看代码
-	@ExceptionHandler(BindException.class)
+    //处理Get请求中 使用@Valid 验证路径中请求实体校验失败后抛出的异常，详情继续往下看代码
+    @ExceptionHandler(BindException.class)
     @ResponseBody
     public ResponseData<String> BindExceptionHandler(BindException e) {
         String message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(";"));
@@ -43,14 +47,14 @@ public class WebExceptionHandler {
         String message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(";"));
         return ResponseData.error(ResponseEnum.INCORRECT_PARAMS);
     }
-    
+
     //处理请求参数格式错误  HttpMessageNotReadableException
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
     public ResponseData<String> HttpMessageNotReadableExceptionHandler(HttpMessageNotReadableException e) {
         return ResponseData.error(ResponseEnum.INCORRECT_PARAMS);
     }
-    
+
     //处理请求参数格式错误  HttpMediaTypeNotSupportedException
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     @ResponseBody
@@ -58,12 +62,19 @@ public class WebExceptionHandler {
         return ResponseData.error(ResponseEnum.INCORRECT_PARAMS);
     }
 
+    // 认证异常
+    @ExceptionHandler(OAuth2Exception.class)
+    @ResponseBody
+    public ResponseData<String> OAuth2ExceptionHandler(OAuth2Exception e) {
+        return ResponseData.error(ResponseEnum.AUTH_ERROR, e.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseData<String> ExceptionHandler(Exception e) {
-	    log.error("错误信息:"+e.getMessage());
-	    e.printStackTrace();
-        return ResponseData.error(ResponseEnum.SERVER_ERROR);
+        log.error("错误信息:" + e.getMessage());
+        e.printStackTrace();
+        return ResponseData.error(ResponseEnum.SERVER_ERROR, e.getMessage());
     }
-    
+
 }

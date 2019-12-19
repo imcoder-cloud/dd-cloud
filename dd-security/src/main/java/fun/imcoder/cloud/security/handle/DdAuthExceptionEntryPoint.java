@@ -2,6 +2,8 @@ package fun.imcoder.cloud.security.handle;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import fun.imcoder.cloud.base.common.ResponseData;
+import fun.imcoder.cloud.base.enums.ResponseEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.AuthenticationException;
@@ -22,15 +24,11 @@ public class DdAuthExceptionEntryPoint extends OAuth2AuthenticationEntryPoint {
         response.setContentType("application/json;charset=UTF-8");
         JSONObject json = new JSONObject();
         if (e.getCause() instanceof InvalidTokenException) {
-            json.put("code",HttpStatus.BAD_REQUEST.value());
-            json.put("message","access_token 无效");
-        }else if(e instanceof InsufficientAuthenticationException){
-            json.put("code", HttpStatus.UNAUTHORIZED.value());
-            json.put("message","访问此资源需要完全的身份验证");
-        }else{
-            json.put("code", HttpStatus.BAD_REQUEST.value());
-            json.put("message","Bad Request");
+            response.getWriter().write(JSON.toJSONString(new ResponseData(ResponseEnum.ACCESS_TOKEN_INVALID)));
+        } else if (e instanceof InsufficientAuthenticationException) {
+            response.getWriter().write(JSON.toJSONString(new ResponseData(ResponseEnum.UNAUTHORIZED)));
+        } else {
+            response.getWriter().write(JSON.toJSONString(new ResponseData(ResponseEnum.BAD_REQUEST)));
         }
-        response.getWriter().write(JSON.toJSONString(json));
     }
 }

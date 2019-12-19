@@ -8,9 +8,4 @@ sourceSets {
 
 dependencies {
     compile project(':dd-base')
-    compile ('org.springframework.boot:spring-boot-starter-security')
-    compile ('org.springframework.security.oauth:spring-security-oauth2:2.3.6.RELEASE')
-    compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.0.RELEASE'){
-        exclude group: 'org.springframework.security.oauth', module:'spring-security-oauth2'
-    }
 }

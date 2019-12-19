@@ -1,4 +1,4 @@
-package fun.imcoder.cloud.auth.service.impl;
+package fun.imcoder.cloud.auth.component;
 
 import fun.imcoder.cloud.auth.model.User;
 import fun.imcoder.cloud.auth.service.UserService;
@@ -27,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误！");
         }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_APP"));
+        user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
         return user;
     }
 }
