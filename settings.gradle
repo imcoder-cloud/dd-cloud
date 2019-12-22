@@ -1,4 +1,5 @@
 rootProject.name = 'dd-cloud'
+include 'dd-eureka'
 include 'dd-auth'
 include 'dd-base'
 include 'dd-security'

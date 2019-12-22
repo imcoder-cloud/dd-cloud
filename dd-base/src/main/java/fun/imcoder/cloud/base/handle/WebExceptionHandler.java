@@ -5,10 +5,6 @@ import fun.imcoder.cloud.base.common.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.security.oauth2.common.exceptions.UnsupportedGrantTypeException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -63,11 +59,11 @@ public class WebExceptionHandler {
     }
 
     // 认证异常
-    @ExceptionHandler(OAuth2Exception.class)
-    @ResponseBody
-    public ResponseData<String> OAuth2ExceptionHandler(OAuth2Exception e) {
-        return ResponseData.error(ResponseEnum.AUTH_ERROR, e.getMessage());
-    }
+//    @ExceptionHandler(OAuth2Exception.class)
+//    @ResponseBody
+//    public ResponseData<String> OAuth2ExceptionHandler(OAuth2Exception e) {
+//        return ResponseData.error(ResponseEnum.AUTH_ERROR, e.getMessage());
+//    }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

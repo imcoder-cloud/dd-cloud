@@ -1,0 +1,9 @@
+archivesBaseName = 'dd-eureka'
+
+jar.enabled = true
+bootJar.enabled = true
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+}
+
