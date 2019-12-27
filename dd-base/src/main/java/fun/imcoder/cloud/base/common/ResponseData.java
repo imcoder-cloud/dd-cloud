@@ -82,10 +82,6 @@ public class ResponseData<T> implements Serializable {
         return new ResponseData<Object>(responseEnum, data);
     }
 
-    public static ResponseData errorParams(String msg){
-        return new ResponseData(ResponseEnum.INCORRECT_PARAMS.getCode(), msg);
-    }
-
     public static ResponseData error(BindingResult result, MessageSource messageSource) {
         StringBuffer msg = new StringBuffer();
         //获取错误字段集合

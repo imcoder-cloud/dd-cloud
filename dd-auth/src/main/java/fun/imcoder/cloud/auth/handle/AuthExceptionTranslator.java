@@ -1,6 +1,7 @@
 package fun.imcoder.cloud.auth.handle;
 
 import fun.imcoder.cloud.auth.exception.DdOAuth2Exception;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,11 +18,13 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class AuthExceptionTranslator implements WebResponseExceptionTranslator {
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     @Override
     public ResponseEntity<OAuth2Exception> translate(Exception e) throws Exception {
+        log.error(e.getMessage());
         Throwable[] causeChain = this.throwableAnalyzer.determineCauseChain(e);
         Exception ase = (OAuth2Exception) this.throwableAnalyzer.getFirstThrowableOfType(OAuth2Exception.class, causeChain);
         //异常链中有OAuth2Exception异常
