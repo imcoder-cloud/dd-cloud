@@ -9,7 +9,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/imcoder?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
 
@@ -26,9 +26,3 @@ mybatis:
 logging:
   level:
     fun.imcoder.cloud.auth.mapper: debug
-
-
-#security:
-#  oauth2:
-#    resource:
-#      filter-order: 3

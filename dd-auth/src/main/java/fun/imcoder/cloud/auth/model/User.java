@@ -1,6 +1,8 @@
 package fun.imcoder.cloud.auth.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import fun.imcoder.cloud.base.support.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
 public class User extends BaseModel implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
+    @TableId(type = IdType.AUTO)
+    private Integer userId;
     private String password;
     private String username;
     private String email;

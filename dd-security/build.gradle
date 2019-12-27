@@ -1,10 +1,13 @@
-sourceSets {
-    main {
-        java {
-            srcDirs = ['src/main/java','../dd-base/src/main/java']
-        }
-    }
-}
+bootJar.enabled = false
+jar.enabled = true
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs = ['src/main/java']
+//        }
+//    }
+//}
 
 dependencies {
     compile project(':dd-base')

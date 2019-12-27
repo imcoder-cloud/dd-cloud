@@ -3,5 +3,4 @@ include 'dd-eureka'
 include 'dd-auth'
 include 'dd-base'
 include 'dd-security'
-include 'demo'
-
+include 'dd-blog'

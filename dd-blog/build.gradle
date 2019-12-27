@@ -19,5 +19,4 @@ buildscript {
 dependencies {
     compile project(':dd-base')
     compile project(':dd-security')
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }

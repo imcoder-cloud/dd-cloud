@@ -11,7 +11,7 @@ oauth2-server: http://localhost:9090
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/test?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/imcoder?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
 
@@ -22,10 +22,10 @@ security:
       client-id: client_1       # 在oauth 服务端注册的client-id
       client-secret: 123456     # 在oauth 服务端注册的secret
       scope: all
-      access-token-uri: http://localhost:9090/oauth/token    #获取token 地址
-      user-authorization-uri: http://localhost:9090/oauth/authorize  # 认证地址
+      access-token-uri: ${oauth2-server}/oauth/token    #获取token 地址
+      user-authorization-uri: ${oauth2-server}/oauth/authorize  # 认证地址
     resource:
 #      filter-order: 3
 #      preferTokenInfo: true
-      token-info-uri: http://localhost:9090/oauth/check_token  # 检查token
-      user-info-uri: http://localhost:9090/user/info   # 用户信息
+      token-info-uri: ${oauth2-server}/oauth/check_token  # 检查token
+      user-info-uri: ${oauth2-server}/user/info   # 用户信息
