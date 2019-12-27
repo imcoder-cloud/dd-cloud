@@ -4,6 +4,7 @@ server:
     session:
       cookie:
         name: DEMOSESSION
+    context-path: /api
 
 # sso　认证配置
 oauth2-server: http://localhost:9090
