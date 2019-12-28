@@ -5,12 +5,15 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import fun.imcoder.cloud.base.common.ResponseData;
+import fun.imcoder.cloud.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BaseController<M extends BaseModel,S extends IService> {
 
@@ -44,8 +47,20 @@ public class BaseController<M extends BaseModel,S extends IService> {
     }
 
     @PostMapping("/save")
-    public ResponseData save(@RequestBody M m) {
-        return ResponseData.success(service.saveOrUpdate(m));
+    public ResponseData save(@RequestBody Object object) throws Exception {
+        Class<M> entityClass = this.getMClass();
+        if(object instanceof List){
+            List<Map<String,Object>> mapList = (List<Map<String, Object>>) object;
+            List<M> list = new ArrayList<>();
+            for(Map<String,Object> map : mapList){
+                list.add(BeanUtil.mapToBean(map,entityClass));
+            }
+            service.saveOrUpdateBatch(list);
+            return ResponseData.success(list);
+        }
+        M m = BeanUtil.mapToBean((Map<String, Object>) object,entityClass);
+        service.saveOrUpdate(m);
+        return ResponseData.success(m);
     }
 
     @PostMapping("/saveBatch")
@@ -61,5 +76,9 @@ public class BaseController<M extends BaseModel,S extends IService> {
     @DeleteMapping("/deleteBatch")
     public ResponseData deleteByIds(@RequestBody List<Integer> ids) {
         return ResponseData.success(service.removeByIds(ids));
+    }
+
+    public Class <M> getMClass(){
+        return (Class <M>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 }
