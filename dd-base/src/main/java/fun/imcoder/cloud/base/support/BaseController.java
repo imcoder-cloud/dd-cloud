@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import fun.imcoder.cloud.base.annotation.ModelParam;
+import fun.imcoder.cloud.base.annotation.PageParam;
+import fun.imcoder.cloud.base.common.PageRequest;
 import fun.imcoder.cloud.base.common.ResponseData;
 import fun.imcoder.cloud.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +23,8 @@ public class BaseController<M extends BaseModel,S extends IService> {
     @Autowired
     public S service;
 
-    @GetMapping("/all")
-    public ResponseData findAll() {
-        return ResponseData.success(service.list());
-    }
-
-    @PostMapping("/list")
-    public ResponseData list(@RequestBody M m) {
+    @GetMapping
+    public ResponseData list(@ModelParam M m) {
         QueryWrapper<M> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(m);
         return ResponseData.success(service.list(queryWrapper));
@@ -37,11 +35,11 @@ public class BaseController<M extends BaseModel,S extends IService> {
         return ResponseData.success(service.getById(id));
     }
 
-    @PostMapping("/page")
-    public ResponseData page(@RequestParam long current, @RequestParam long size, @RequestBody M m) {
-        Page<M> page = new Page<>(current, size);
+    @GetMapping("/page")
+    public ResponseData page(@PageParam() PageRequest<M> pageRequest) {
+        Page<M> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper<M> queryWrapper = new QueryWrapper<>();
-        queryWrapper.setEntity(m);
+        queryWrapper.setEntity(pageRequest.getParam());
         IPage rtn = service.page(page, queryWrapper);
         return ResponseData.success(rtn);
     }
