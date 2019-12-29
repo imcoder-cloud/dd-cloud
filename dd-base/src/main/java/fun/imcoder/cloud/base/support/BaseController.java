@@ -44,7 +44,7 @@ public class BaseController<M extends BaseModel,S extends IService> {
         return ResponseData.success(rtn);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public ResponseData save(@RequestBody Object object) throws Exception {
         Class<M> entityClass = this.getMClass();
         if(object instanceof List){
@@ -61,7 +61,7 @@ public class BaseController<M extends BaseModel,S extends IService> {
         return ResponseData.success(m);
     }
 
-    @PostMapping("/saveBatch")
+    @PostMapping("/batch")
     public ResponseData saveBatch(@RequestBody List<M> list) {
         return ResponseData.success(service.saveOrUpdateBatch(list));
     }
@@ -71,7 +71,7 @@ public class BaseController<M extends BaseModel,S extends IService> {
         return ResponseData.success(service.removeById(id));
     }
 
-    @DeleteMapping("/deleteBatch")
+    @DeleteMapping("/batch")
     public ResponseData deleteByIds(@RequestBody List<Integer> ids) {
         return ResponseData.success(service.removeByIds(ids));
     }
