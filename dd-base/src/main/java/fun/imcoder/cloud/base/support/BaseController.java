@@ -9,11 +9,14 @@ import fun.imcoder.cloud.base.annotation.PageParam;
 import fun.imcoder.cloud.base.common.PageRequest;
 import fun.imcoder.cloud.base.common.ResponseData;
 import fun.imcoder.cloud.base.utils.BeanUtil;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +27,7 @@ public class BaseController<M extends BaseModel,S extends IService> {
     public S service;
 
     @GetMapping
-    public ResponseData list(@ModelParam M m) {
+    public ResponseData list(HttpServletRequest request, @ModelParam M m) {
         QueryWrapper<M> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(m);
         return ResponseData.success(service.list(queryWrapper));

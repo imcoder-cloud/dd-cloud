@@ -15,6 +15,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,8 +60,11 @@ public class PageArgumentHandle implements HandlerMethodArgumentResolver, Handle
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String modelClass = ((HandlerMethod) handler).getBeanType().getAnnotation(PageParamClass.class).value();
-        request.setAttribute("ModelClass",modelClass);
+        Annotation annotation = ((HandlerMethod) handler).getBeanType().getAnnotation(PageParamClass.class);
+        if(annotation != null){
+            String modelClass = ((HandlerMethod) handler).getBeanType().getAnnotation(PageParamClass.class).value();
+            request.setAttribute("ModelClass",modelClass);
+        }
         return true;
     }
 

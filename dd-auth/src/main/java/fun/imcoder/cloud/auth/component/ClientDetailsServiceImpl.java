@@ -1,15 +1,13 @@
 package fun.imcoder.cloud.auth.component;
 
 import fun.imcoder.cloud.auth.exception.DdOAuth2Exception;
-import fun.imcoder.cloud.auth.model.OauthClientDetails;
+import fun.imcoder.cloud.security.model.OauthClientDetails;
 import fun.imcoder.cloud.auth.service.OauthClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.ClientRegistrationException;
 import org.springframework.security.oauth2.provider.client.BaseClientDetails;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

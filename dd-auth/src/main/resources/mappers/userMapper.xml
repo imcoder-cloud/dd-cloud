@@ -4,12 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fun.imcoder.cloud.auth.mapper.UserMapper">
 
-    <select id="findByName" resultType="fun.imcoder.cloud.auth.model.User">
+    <select id="findByName" resultType="fun.imcoder.cloud.security.model.User">
         select
-			a.id id,
-			a.password password,
-			a.email email,
-			a.username username
+        a.user_id userId,
+        a.password password,
+        a.email email,
+        a.username username,
+        a.create_time createTime,
+        a.modify_time modifyTime
         from user a
         where a.username = #{name}
         <if test="password != null and password != '' ">
@@ -17,12 +19,11 @@
         </if>
     </select>
 
-    <select id="findAll" resultType="fun.imcoder.cloud.auth.model.User" useCache="false" flushCache="true">
-        select
-        a.id id,
-        a.password password,
-        a.email email,
-        a.username username
+    <select id="findAll" resultType="fun.imcoder.cloud.auth.model.User1" useCache="false" flushCache="true">
+        select a.id       id,
+               a.password password,
+               a.email    email,
+               a.username username
         from user a
     </select>
 

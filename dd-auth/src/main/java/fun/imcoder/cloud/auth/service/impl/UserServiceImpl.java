@@ -3,7 +3,7 @@ package fun.imcoder.cloud.auth.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.imcoder.cloud.auth.mapper.UserMapper;
-import fun.imcoder.cloud.auth.model.User;
+import fun.imcoder.cloud.security.model.User;
 import fun.imcoder.cloud.auth.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
