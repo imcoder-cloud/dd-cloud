@@ -11,7 +11,7 @@
  Target Server Version : 80017
  File Encoding         : 65001
 
- Date: 27/12/2019 17:19:19
+ Date: 31/12/2019 15:00:25
 */
 
 SET NAMES utf8mb4;
@@ -42,28 +42,28 @@ CREATE TABLE `article`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for article_catgory
+-- Table structure for article_category
 -- ----------------------------
-DROP TABLE IF EXISTS `article_catgory`;
-CREATE TABLE `article_catgory`  (
+DROP TABLE IF EXISTS `article_category`;
+CREATE TABLE `article_category`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `article_id` int(11) NULL DEFAULT NULL,
-  `catgory_id` int(11) NULL DEFAULT NULL,
+  `category_id` int(11) NULL DEFAULT NULL,
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `modify_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for catgory
+-- Table structure for category
 -- ----------------------------
-DROP TABLE IF EXISTS `catgory`;
-CREATE TABLE `catgory`  (
-  `catgory_id` int(11) NOT NULL,
-  `catgory_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE `category`  (
+  `category_id` int(11) NOT NULL,
+  `category_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `modify_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`catgory_id`) USING BTREE
+  PRIMARY KEY (`category_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -88,11 +88,6 @@ CREATE TABLE `oauth_client_details`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '终端信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of oauth_client_details
--- ----------------------------
-INSERT INTO `oauth_client_details` VALUES ('client_1', NULL, '123456', 'all', 'password,authorization_code,refresh_token', NULL, NULL, NULL, NULL, NULL, 'true', NULL, '2019-12-19 10:22:58');
-
--- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -102,7 +97,7 @@ CREATE TABLE `role`  (
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `modify_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tag
@@ -129,15 +124,7 @@ CREATE TABLE `user`  (
   `create_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   `modify_time` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES (8, 'admin', 'imacoder@126.com', 'admin', '2019-12-04 10:17:20', '2019-12-27 13:34:06');
-INSERT INTO `user` VALUES (11, 'coder的自我修养', 'imacoder@126.com', '123456', '2019-12-04 17:51:49', '2019-12-04 17:51:49');
-INSERT INTO `user` VALUES (12, 'coder的自我修养', 'imacoder@126.com', '123456', '2019-12-04 17:53:25', '2019-12-04 17:53:25');
-INSERT INTO `user` VALUES (13, 'coder的自我修养', 'imacoder@126.com', '123456', '2019-12-04 17:59:22', '2019-12-04 17:59:22');
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for user_role
