@@ -3,4 +3,5 @@ jar.enabled = true
 
 dependencies {
     compile('com.baomidou:mybatis-plus-boot-starter:3.3.0')
+    compile('commons-beanutils:commons-beanutils:1.9.4')
 }

@@ -8,17 +8,13 @@ import fun.imcoder.cloud.base.annotation.ModelParam;
 import fun.imcoder.cloud.base.common.PageRequest;
 import fun.imcoder.cloud.base.common.ResponseData;
 import fun.imcoder.cloud.base.enums.ModelParamType;
-import fun.imcoder.cloud.base.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class BaseController<M extends BaseModel, S extends IService> {

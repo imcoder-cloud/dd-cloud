@@ -1,6 +1,6 @@
 package fun.imcoder.cloud.base.config;
 
-import fun.imcoder.cloud.base.handle.GetArgumentHandle;
+import fun.imcoder.cloud.base.handle.MethodArgumentHandle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -13,16 +13,16 @@ import java.util.List;
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Autowired
-    GetArgumentHandle getArgumentHandle;
+    MethodArgumentHandle methodArgumentHandle;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(getArgumentHandle);
+        argumentResolvers.add(methodArgumentHandle);
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getArgumentHandle);
+        registry.addInterceptor(methodArgumentHandle);
     }
 
 }

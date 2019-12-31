@@ -4,7 +4,6 @@ import fun.imcoder.cloud.base.annotation.ModelParam;
 import fun.imcoder.cloud.base.common.PageRequest;
 import fun.imcoder.cloud.base.enums.ModelParamType;
 import fun.imcoder.cloud.base.utils.BeanUtil;
-import fun.imcoder.cloud.base.utils.Util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.MutablePropertyValues;
@@ -27,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class GetArgumentHandle implements HandlerMethodArgumentResolver, HandlerInterceptor {
+public class MethodArgumentHandle implements HandlerMethodArgumentResolver, HandlerInterceptor {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(ModelParam.class);
@@ -36,8 +35,8 @@ public class GetArgumentHandle implements HandlerMethodArgumentResolver, Handler
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         ModelParamType type = parameter.getParameterAnnotation(ModelParam.class).value();
-        // 分页请求
-        if(type.equals(ModelParamType.PAGE)){
+        // 分页 get 请求
+        if (type.equals(ModelParamType.PAGE)) {
             Map<String, String[]> map = webRequest.getParameterMap();
             Map<String, Object> params = new HashMap<>();
             for (Map.Entry<String, String[]> entry : map.entrySet()) {
@@ -64,7 +63,7 @@ public class GetArgumentHandle implements HandlerMethodArgumentResolver, Handler
                 pageRequest.setPageSize(Integer.parseInt(size));
             }
 
-            pageRequest.setParam(BeanUtil.mapToBean(params,modelClass));
+            pageRequest.setParam(BeanUtil.mapToBean(params, modelClass));
 
             return pageRequest;
 
@@ -87,14 +86,14 @@ public class GetArgumentHandle implements HandlerMethodArgumentResolver, Handler
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Class controllerClass = Class.forName(((HandlerMethod) handler).getBeanType().getName());
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        Class controllerClass = ((HandlerMethod) handler).getBeanType();
         Type genericSuperclass = controllerClass.getGenericSuperclass();
-        if(genericSuperclass.getTypeName()!="java.lang.Object"){
-            ParameterizedType pType = (ParameterizedType)genericSuperclass;
+        if (!"java.lang.Object".equals(genericSuperclass.getTypeName())) {
+            ParameterizedType pType = (ParameterizedType) genericSuperclass;
             Type[] arguments = pType.getActualTypeArguments();
-            Class modelClass = (Class)arguments[0];
-            request.setAttribute("ModelClass",modelClass);
+            Class modelClass = (Class) arguments[0];
+            request.setAttribute("ModelClass", modelClass);
         }
         return true;
     }
