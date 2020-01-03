@@ -9,12 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
+
 @RestController
 @RequestMapping("/role")
 public class RoleController extends BaseController<Role, RoleService> {
 
     @GetMapping("/test")
-    private User test() {
+    private User test() throws InvocationTargetException, IllegalAccessException {
         User user = SecurityUtil.getUser();
         return user;
     }

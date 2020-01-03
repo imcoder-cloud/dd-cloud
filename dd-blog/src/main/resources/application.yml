@@ -27,6 +27,6 @@ security:
       user-authorization-uri: ${oauth2-server}/oauth/authorize  # 认证地址
     resource:
 #      filter-order: 3
-#      preferTokenInfo: true
+      preferTokenInfo: true
       token-info-uri: ${oauth2-server}/oauth/check_token  # 检查token
       user-info-uri: ${oauth2-server}/user/info   # 用户信息

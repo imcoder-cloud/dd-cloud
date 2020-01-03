@@ -19,12 +19,4 @@
         </if>
     </select>
 
-    <select id="findAll" resultType="fun.imcoder.cloud.auth.model.User1" useCache="false" flushCache="true">
-        select a.id       id,
-               a.password password,
-               a.email    email,
-               a.username username
-        from user a
-    </select>
-
 </mapper>

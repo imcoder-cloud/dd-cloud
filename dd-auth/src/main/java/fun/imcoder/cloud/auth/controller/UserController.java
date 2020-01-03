@@ -11,24 +11,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.InvocationTargetException;
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @GetMapping("/info")
-    public ResponseData<User> getUser(OAuth2Authentication authentication) {
-        return ResponseData.success((User) authentication.getPrincipal());
+    public ResponseData getUser(OAuth2Authentication authentication) {
+        return ResponseData.success(authentication.getPrincipal());
     }
 
     @GetMapping("/client")
     public ResponseData<String> getClientId() {
         return ResponseData.success(SecurityUtil.getClientId());
-    }
-
-    @GetMapping("/test")
-    public ResponseData<User> tsst() {
-        return ResponseData.success(SecurityUtil.getUser());
     }
 
 }
