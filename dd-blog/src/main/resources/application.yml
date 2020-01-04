@@ -1,32 +1,24 @@
 server:
-  port: 9091
   servlet:
+    context-path: /blog
     session:
       cookie:
-        name: DEMOSESSION
-    context-path: /api
-
-# sso　认证配置
-oauth2-server: http://localhost:9090
+        name: BLOG-SESSION
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/imcoder?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: root
+  profiles:
+    active: dev
 
 security:
   oauth2:
     client:
-      grant-type: password      # 授权模式
-      client-id: client_1       # 在oauth 服务端注册的client-id
-      client-secret: 123456     # 在oauth 服务端注册的secret
-      scope: all
-      access-token-uri: ${oauth2-server}/oauth/token    #获取token 地址
-      user-authorization-uri: ${oauth2-server}/oauth/authorize  # 认证地址
+      access-token-uri: ${security.oauth2.server}/oauth/token    #获取token 地址
+      user-authorization-uri: ${security.oauth2.server}/oauth/authorize  # 认证地址
     resource:
-#      filter-order: 3
       preferTokenInfo: true
-      token-info-uri: ${oauth2-server}/oauth/check_token  # 检查token
-      user-info-uri: ${oauth2-server}/user/info   # 用户信息
+      token-info-uri: ${security.oauth2.server}/oauth/check_token  # 检查token
+      user-info-uri: ${security.oauth2.server}/user/info   # 用户信息
+
+logging:
+  level:
+    fun.imcoder.cloud.blog.mapper: debug

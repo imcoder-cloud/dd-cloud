@@ -23,7 +23,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management' /* 依赖管理，用来传递spring的依赖 */
 
     group = 'fun.imcloud.cloud'
-    version = '0.0.1' /* 项目版本 */
+    version = '' /* 项目版本 */
     /* 指定jdk版本 */
     sourceCompatibility = '1.8'
     /* java编译的时候缺省状态下会因为中文字符而失败 */

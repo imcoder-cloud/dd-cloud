@@ -8,13 +8,7 @@ buildscript {
     }
 }
 
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ['src/main/java', '../dd-base/src/main/java', '../dd-security/src/main/java']
-//        }
-//    }
-//}
+jar.baseName = 'dd-blog'
 
 dependencies {
     compile project(':dd-base')
