@@ -24,7 +24,9 @@ public class User extends BaseModel implements UserDetails, Serializable {
     private Integer userId;
     private String password;
     private String username;
+    private String mobile;
     private String email;
+
     @TableField(exist = false)
     private List<GrantedAuthority> authorities;
 

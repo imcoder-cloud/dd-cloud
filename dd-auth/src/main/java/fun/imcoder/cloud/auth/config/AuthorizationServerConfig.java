@@ -1,9 +1,7 @@
 package fun.imcoder.cloud.auth.config;
 
-import fun.imcoder.cloud.auth.component.ClientDetailsServiceImpl;
 import fun.imcoder.cloud.auth.handle.AuthExceptionTranslator;
 import fun.imcoder.cloud.auth.handle.DdUserAuthenticationConverter;
-import fun.imcoder.cloud.security.model.User;
 import fun.imcoder.cloud.auth.component.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,19 +10,18 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.sql.DataSource;
 
 
 @Configuration
@@ -43,7 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private AuthExceptionTranslator authExceptionTranslator;
 
     @Autowired
-    private ClientDetailsServiceImpl clientDetailsService;
+    private DataSource dataSource;
 
     @Autowired
     private DdUserAuthenticationConverter ddUserAuthenticationConverter;
@@ -60,38 +57,45 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return tokenStore;
     }
 
-    @Bean
-    public TokenEnhancer tokenEnhancer() {
-        return (accessToken, authentication) -> {
-            if (accessToken instanceof DefaultOAuth2AccessToken) {
-                DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
-                Map<String, Object> additionalInformation = new LinkedHashMap<>();
-                additionalInformation.put("expiration", accessToken.getExpiration().getTime());
-
-                User user = (User) authentication.getPrincipal();
-                additionalInformation.put("userName", user.getUsername());
-                token.setAdditionalInformation(additionalInformation);
-            }
-            return accessToken;
-        };
-    }
-
-//    @Bean("clientDetailsService1")
-//    public ClientDetailsService clientDetailsService() {
-//        return new JdbcClientDetailsService(dataSource);
+//    @Bean
+//    public TokenEnhancer tokenEnhancer() {
+//        return (accessToken, authentication) -> {
+//            if (accessToken instanceof DefaultOAuth2AccessToken) {
+//                DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) accessToken;
+//                Map<String, Object> additionalInformation = new LinkedHashMap<>();
+//                additionalInformation.put("expiration", accessToken.getExpiration().getTime());
+//
+//                User user = (User) authentication.getPrincipal();
+//                additionalInformation.put("userName", user.getUsername());
+//                token.setAdditionalInformation(additionalInformation);
+//            }
+//            return accessToken;
+//        };
 //    }
+
+    @Bean
+    public ClientDetailsService clientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         DefaultAccessTokenConverter defaultAccessTokenConverter = new DefaultAccessTokenConverter();
         defaultAccessTokenConverter.setUserTokenConverter(ddUserAuthenticationConverter);
+
+        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+
         endpoints
-                .tokenEnhancer(tokenEnhancer())
+//                .tokenEnhancer(tokenEnhancer())
                 .exceptionTranslator(authExceptionTranslator)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService)
                 .accessTokenConverter(defaultAccessTokenConverter)
+                .tokenServices(tokenServices)
                 .tokenStore(getTokenStore());
+
+        tokenServices.setTokenStore(endpoints.getTokenStore());
     }
 
     @Override
@@ -102,16 +106,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .allowFormAuthenticationForClients();
     }
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService).clients(clientDetailsService);
-//        clients.inMemory()
-//                .withClient("client_1")
-//                .authorizedGrantTypes("password","authorization_code", "refresh_token")
-//                .scopes("all")
-//                .authorities("ROLE_APP")
-//                .secret(passwordEncoder().encode("123456"))
-//                .accessTokenValiditySeconds(60 * 30)
-//                .refreshTokenValiditySeconds(60 * 60);
-    }
 }

@@ -5,18 +5,15 @@
 <mapper namespace="fun.imcoder.cloud.auth.mapper.UserMapper">
 
     <select id="findByName" resultType="fun.imcoder.cloud.security.model.User">
-        select
-        a.user_id userId,
-        a.password password,
-        a.email email,
-        a.username username,
-        a.create_time createTime,
-        a.modify_time modifyTime
+        select a.user_id     userId,
+               a.password    password,
+               a.mobile      mobile,
+               a.email       email,
+               a.username    username,
+               a.create_time createTime,
+               a.modify_time modifyTime
         from user a
         where a.username = #{name}
-        <if test="password != null and password != '' ">
-            and a.password = #{password}
-        </if>
     </select>
 
 </mapper>

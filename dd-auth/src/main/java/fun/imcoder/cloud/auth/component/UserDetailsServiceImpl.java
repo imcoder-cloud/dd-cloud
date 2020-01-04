@@ -24,7 +24,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null){
             throw new UsernameNotFoundException("用户名或密码错误！");
         }
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER"));
         return user;
     }

@@ -1,17 +1,12 @@
 package fun.imcoder.cloud.auth.controller;
 
 import fun.imcoder.cloud.base.common.ResponseData;
-import fun.imcoder.cloud.security.model.User;
-import fun.imcoder.cloud.auth.service.UserService;
-import fun.imcoder.cloud.base.support.BaseController;
 import fun.imcoder.cloud.security.utils.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.lang.reflect.InvocationTargetException;
 
 @Slf4j
 @RestController
