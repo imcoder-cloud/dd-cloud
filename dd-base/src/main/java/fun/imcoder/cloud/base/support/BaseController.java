@@ -58,13 +58,15 @@ public class BaseController<M extends BaseModel, S extends IService> {
 //    }
 
     @PostMapping
-    public ResponseData<Boolean> saveBatch(@RequestBody List<M> list) {
-        return ResponseData.success(service.saveBatch(list));
+    public ResponseData<List<M>> saveBatch(@RequestBody List<M> list) {
+        service.saveBatch(list);
+        return ResponseData.success(list);
     }
 
     @PutMapping
-    public ResponseData<Boolean> updateBatch(@RequestBody List<M> list) {
-        return ResponseData.success(service.updateBatchById(list));
+    public ResponseData<List<M>> updateBatch(@RequestBody List<M> list) {
+        service.updateBatchById(list);
+        return ResponseData.success(list);
     }
 
     @DeleteMapping("/{id}")
@@ -80,7 +82,7 @@ public class BaseController<M extends BaseModel, S extends IService> {
 
     @DeleteMapping("/batch")
     public ResponseData<Boolean> deleteByIds(@RequestParam String ids) {
-        List<Integer> list = Arrays.stream(ids.split(",")).mapToInt(s->Integer.parseInt(s)).boxed().collect(Collectors.toList());
+        List<Integer> list = Arrays.stream(ids.split(",")).mapToInt(s -> Integer.parseInt(s)).boxed().collect(Collectors.toList());
         return ResponseData.success(service.removeByIds(list));
     }
 

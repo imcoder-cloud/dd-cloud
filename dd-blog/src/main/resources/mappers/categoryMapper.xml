@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.imcoder.cloud.blog.mapper.CategoryMapper">
+
+    <select id="list" resultType="fun.imcoder.cloud.blog.model.Category">
+        select
+        a.category_id categoryId,
+        a.category_name categoryName,
+        a.user_id userId,
+        a.create_time createTime,
+        a.modify_time modifyTime
+        from category a
+        <where>
+            <if test="categoryIds != null and categoryIds.size() > 0">
+                and a.category_id in
+                <foreach collection="categoryIds" index="index" item="categoryId" open="(" separator="," close=")">
+                    #{categoryId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>

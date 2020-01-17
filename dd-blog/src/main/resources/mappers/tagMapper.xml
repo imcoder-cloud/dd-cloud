@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.imcoder.cloud.blog.mapper.TagMapper">
+
+    <select id="list" resultType="fun.imcoder.cloud.blog.model.Tag">
+        select
+        a.tag_id tagId,
+        a.tag_name tagName,
+        a.user_id userId,
+        a.create_time createTime,
+        a.modify_time modifyTime
+        from tag a
+        <where>
+            <if test="tagIds != null and tagIds.size() > 0">
+                and a.tag_id in
+                <foreach collection="tagIds" index="index" item="tagId" open="(" separator="," close=")">
+                    #{tagId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>

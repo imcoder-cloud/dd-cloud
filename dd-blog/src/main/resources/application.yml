@@ -19,6 +19,9 @@ security:
       token-info-uri: ${security.oauth2.server}/oauth/check_token  # 检查token
       user-info-uri: ${security.oauth2.server}/user/info   # 用户信息
 
+mybatis-plus:
+  mapperLocations: classpath:mappers/*.xml
+
 logging:
   level:
     fun.imcoder.cloud.blog.mapper: debug

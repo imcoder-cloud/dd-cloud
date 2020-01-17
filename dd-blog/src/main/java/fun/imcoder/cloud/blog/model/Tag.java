@@ -5,16 +5,21 @@ import fun.imcoder.cloud.base.support.BaseModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("tag")
 public class Tag extends BaseModel {
 
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Integer tagId;
 
     @TableField(condition= SqlCondition.LIKE)
     private String tagName;
 
-    private Integer articleId;
+    private Integer userId;
+
+    @TableField(exist= false)
+    private List<Integer> tagIds;
 }
