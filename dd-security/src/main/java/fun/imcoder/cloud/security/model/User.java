@@ -29,6 +29,12 @@ public class User extends BaseModel implements UserDetails, Serializable {
 
     @TableField(exist = false)
     private List<GrantedAuthority> authorities;
+    @TableField(exist = false)
+    private Integer articleCount;
+    @TableField(exist = false)
+    private Integer likesCount;
+    @TableField(exist = false)
+    private Integer viewsCount;
 
     //权限列表
     @Override

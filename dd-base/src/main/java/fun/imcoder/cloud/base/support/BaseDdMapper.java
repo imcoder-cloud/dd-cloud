@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BaseDdMapper<M> extends BaseMapper<M> {
 
@@ -31,6 +32,15 @@ public interface BaseDdMapper<M> extends BaseMapper<M> {
      * @return
      */
     List<M> customList(M m);
+
+    /**
+     * 自定义查询 Map 参数
+     * 需要自己写sql
+     *
+     * @param param
+     * @return
+     */
+    List<M> customList(Map<String,Object> param);
 
     /**
      * 自定义分页查询

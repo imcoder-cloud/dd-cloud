@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import fun.imcoder.cloud.base.common.PageRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 基础service实现类
@@ -34,6 +35,11 @@ public class BaseServiceImpl<T extends BaseDdMapper<M>, M> extends ServiceImpl<T
     @Override
     public List<M> customList(M m) {
         return this.baseMapper.customList(m);
+    }
+
+    @Override
+    public List<M> customList(Map<String, Object> param) {
+        return this.baseMapper.customList(param);
     }
 
     @Override
