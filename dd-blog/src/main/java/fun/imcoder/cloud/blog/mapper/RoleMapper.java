@@ -1,8 +1,8 @@
 package fun.imcoder.cloud.blog.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import fun.imcoder.cloud.base.support.BaseDdMapper;
 import fun.imcoder.cloud.blog.model.Role;
 
-public interface RoleMapper extends BaseMapper<Role> {
+public interface RoleMapper extends BaseDdMapper<Role> {
     
 }

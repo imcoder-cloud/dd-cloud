@@ -3,7 +3,6 @@ package fun.imcoder.cloud.base.support;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import fun.imcoder.cloud.base.annotation.ModelParam;
 import fun.imcoder.cloud.base.common.PageRequest;
 import fun.imcoder.cloud.base.common.ResponseData;
@@ -17,7 +16,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BaseController<M extends BaseModel, S extends IService> {
+/**
+ * 基础 Controller
+ *
+ * @param <M>
+ * @param <S>
+ */
+public class BaseController<M extends BaseModel, S extends BaseService> {
 
     @Autowired
     public S service;
@@ -39,6 +44,18 @@ public class BaseController<M extends BaseModel, S extends IService> {
         QueryWrapper<M> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(pageRequest.getParam());
         IPage rtn = service.page(page, queryWrapper);
+        return ResponseData.success(rtn);
+    }
+
+    /**
+     * 自定义分页
+     *
+     * @param pageRequest
+     * @return
+     */
+    @GetMapping("/page-plus")
+    public ResponseData<IPage<M>> pagePlus(@ModelParam(ModelParamType.PAGE) PageRequest<M> pageRequest) {
+        IPage rtn = service.customPage(pageRequest);
         return ResponseData.success(rtn);
     }
 
@@ -78,6 +95,18 @@ public class BaseController<M extends BaseModel, S extends IService> {
     public ResponseData<Boolean> deleteByModel(@ModelParam M m) {
         QueryWrapper<M> queryWrapper = new QueryWrapper<>(m);
         return ResponseData.success(service.remove(queryWrapper));
+    }
+
+    /**
+     * 自定义批量插入
+     *
+     * @param list
+     * @return
+     */
+    @PostMapping("/batch")
+    public ResponseData<List<M>> insertBatch(@RequestBody List<M> list) {
+        service.insertBatch(list);
+        return ResponseData.success(list);
     }
 
     @DeleteMapping("/batch")

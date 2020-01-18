@@ -1,6 +1,7 @@
 package fun.imcoder.cloud.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import fun.imcoder.cloud.base.support.BaseServiceImpl;
 import fun.imcoder.cloud.blog.mapper.*;
 import fun.imcoder.cloud.blog.model.*;
 import fun.imcoder.cloud.blog.service.ArticleService;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
+public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Resource
     private ArticleMapper articleMapper;

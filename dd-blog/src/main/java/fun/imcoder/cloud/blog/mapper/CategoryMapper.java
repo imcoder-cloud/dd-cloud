@@ -1,10 +1,10 @@
 package fun.imcoder.cloud.blog.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import fun.imcoder.cloud.base.support.BaseDdMapper;
 import fun.imcoder.cloud.blog.model.Category;
 
 import java.util.List;
 
-public interface CategoryMapper extends BaseMapper<Category> {
+public interface CategoryMapper extends BaseDdMapper<Category> {
     List<Category> list(Category category);
 }
