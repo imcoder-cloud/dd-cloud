@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.imcoder.cloud.blog.mapper.UserMapper">
+
+    <select id="customList" resultType="fun.imcoder.cloud.security.model.User">
+        select a.user_id     userId,
+               a.mobile      mobile,
+               a.email       email,
+               a.username    username,
+               (select count(*) from article b where b.user_id = a.user_id)    articleCount,
+               (select sum(b.likes) from article b where b.user_id = a.user_id)    likesCount,
+               (select sum(b.views) from article b where b.user_id = a.user_id)    viewsCount,
+               a.create_time createTime,
+               a.modify_time modifyTime
+        from user a
+        where a.user_id = #{userId}
+    </select>
+
+</mapper>
