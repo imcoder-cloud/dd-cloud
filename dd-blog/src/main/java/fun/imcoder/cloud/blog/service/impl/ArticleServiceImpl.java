@@ -43,13 +43,13 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> 
         if (!categoryIds.isEmpty()) {
             Category category = new Category();
             category.setCategoryIds(categoryIds);
-            List<Category> categoryList = categoryMapper.list(category);
+            List<Category> categoryList = categoryMapper.customList(category);
             article.setCategoryList(categoryList);
         }
         if (!tagIds.isEmpty()) {
             Tag tag = new Tag();
             tag.setTagIds(tagIds);
-            List<Tag> tagList = tagMapper.list(tag);
+            List<Tag> tagList = tagMapper.customList(tag);
             article.setTagList(tagList);
         }
         return article;

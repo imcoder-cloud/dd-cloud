@@ -33,6 +33,11 @@ public class BaseController<M extends BaseModel, S extends BaseService> {
         return ResponseData.success(service.list(queryWrapper));
     }
 
+    @GetMapping("/list")
+    public ResponseData<List<M>> customList(@ModelParam M m) {
+        return ResponseData.success(service.customList(m));
+    }
+
     @GetMapping("/{id}")
     public ResponseData<M> getById(@PathVariable Integer id) {
         return ResponseData.success((M) service.getById(id));

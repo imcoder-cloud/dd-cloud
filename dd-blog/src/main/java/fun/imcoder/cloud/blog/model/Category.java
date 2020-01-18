@@ -15,11 +15,14 @@ public class Category extends BaseModel {
     @TableId(type = IdType.AUTO)
     private Integer categoryId;
 
-    @TableField(condition= SqlCondition.LIKE)
+    @TableField(condition = SqlCondition.LIKE)
     private String categoryName;
 
     private Integer userId;
 
-    @TableField(exist= false)
+    @TableField(exist = false)
     private List<Integer> categoryIds;
+    @TableField(exist = false)
+    private Integer articleCount;
+
 }

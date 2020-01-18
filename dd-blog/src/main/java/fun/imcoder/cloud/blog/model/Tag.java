@@ -15,11 +15,14 @@ public class Tag extends BaseModel {
     @TableId(type = IdType.AUTO)
     private Integer tagId;
 
-    @TableField(condition= SqlCondition.LIKE)
+    @TableField(condition = SqlCondition.LIKE)
     private String tagName;
 
     private Integer userId;
 
-    @TableField(exist= false)
+    @TableField(exist = false)
     private List<Integer> tagIds;
+    @TableField(exist = false)
+    private Integer articleCount;
+
 }

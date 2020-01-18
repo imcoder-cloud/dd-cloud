@@ -4,15 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fun.imcoder.cloud.blog.mapper.TagMapper">
 
-    <select id="list" resultType="fun.imcoder.cloud.blog.model.Tag">
+    <select id="customList" resultType="fun.imcoder.cloud.blog.model.Tag">
         select
         a.tag_id tagId,
+        (select count(*) from article_tag b where b.tag_id = a.tag_id) articleCount,
         a.tag_name tagName,
         a.user_id userId,
         a.create_time createTime,
         a.modify_time modifyTime
         from tag a
         <where>
+            <if test="userId != null and userId != '' ">
+                and a.user_id = #{userId}
+            </if>
             <if test="tagIds != null and tagIds.size() > 0">
                 and a.tag_id in
                 <foreach collection="tagIds" index="index" item="tagId" open="(" separator="," close=")">
