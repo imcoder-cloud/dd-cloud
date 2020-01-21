@@ -120,4 +120,8 @@ public class ArticleServiceImpl extends BaseServiceImpl<ArticleMapper, Article> 
         articleCategoryMapper.insertBatch(articleCategoryList);
     }
 
+    @Override
+    public Integer addViews(Article article) {
+        return this.articleMapper.addViews(article);
+    }
 }

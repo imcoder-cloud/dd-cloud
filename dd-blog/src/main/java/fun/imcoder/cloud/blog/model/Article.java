@@ -34,4 +34,5 @@ public class Article extends BaseModel {
     private List<Category> categoryList;
     @TableField(exist = false)
     private List<Tag> tagList;
+
 }

@@ -44,7 +44,7 @@ public class MethodArgumentHandle implements HandlerMethodArgumentResolver, Hand
                     continue;
                 }
 
-                params.put(entry.getKey().replace("param.", ""), entry.getValue().length > 1 ? entry.getValue() :
+                params.put(entry.getKey().replace("params.", ""), entry.getValue().length > 1 ? entry.getValue() :
                         entry.getValue()[0]);
             }
 

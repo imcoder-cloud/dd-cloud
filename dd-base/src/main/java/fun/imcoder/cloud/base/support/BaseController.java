@@ -48,7 +48,7 @@ public class BaseController<M extends BaseModel, S extends BaseService> {
         Page<M> page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
         QueryWrapper<M> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(pageRequest.getParams());
-        queryWrapper.orderByDesc("create_time");
+        queryWrapper.orderByDesc(pageRequest.getParams().getOrder());
         IPage rtn = service.page(page, queryWrapper);
         return ResponseData.success(rtn);
     }
