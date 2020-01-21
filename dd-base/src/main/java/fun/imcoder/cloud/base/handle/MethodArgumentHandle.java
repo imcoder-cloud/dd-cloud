@@ -63,7 +63,7 @@ public class MethodArgumentHandle implements HandlerMethodArgumentResolver, Hand
                 pageRequest.setPageSize(Integer.parseInt(size));
             }
 
-            pageRequest.setParam(BeanUtil.mapToBean(params, modelClass));
+            pageRequest.setParams(BeanUtil.mapToBean(params, modelClass));
 
             return pageRequest;
 

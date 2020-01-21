@@ -45,7 +45,7 @@ public class BaseServiceImpl<T extends BaseDdMapper<M>, M> extends ServiceImpl<T
     @Override
     public IPage<M> customPage(PageRequest<M> pageRequest) {
         Page page = new Page<>(pageRequest.getPageNum(), pageRequest.getPageSize());
-        List<M> list = this.baseMapper.customPage(page, pageRequest.getParam());
+        List<M> list = this.baseMapper.customPage(page, pageRequest.getParams());
         return page.setRecords(list);
     }
 
